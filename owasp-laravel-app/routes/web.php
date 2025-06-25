@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CryptographicFailuresTestController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/dashboard', function () {
@@ -27,5 +28,8 @@ Route::get('/admin', function () {
 // A02 - Cryptographic Failures
 Route::get('/crypto-demo', [CryptographicFailuresTestController::class, 'showStoredPasswords']);
 Route::post('/store-passwords', [CryptographicFailuresTestController::class, 'storePassword']);
+
+// A03 - SQL Injection
+Route::get('/search', [HomeController::class, 'searchUsers']);
 
 require __DIR__.'/auth.php';

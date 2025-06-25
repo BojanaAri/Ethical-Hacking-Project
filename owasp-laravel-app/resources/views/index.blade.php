@@ -1,64 +1,68 @@
 <x-app-layout>
+    {{-- Optional login/register navigation --}}
+    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden mx-auto">
+        @if (Route::has('login'))
+            <nav class="flex items-center justify-end gap-4">
+                @auth
+                    {{-- Authenticated users don’t need login/register links --}}
+                @else
+                    <a
+                        href="{{ route('login') }}"
+                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
+                        Log in
+                    </a>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Top navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-            @if (Route::has('login'))
-                <nav class="flex items-center justify-end gap-4">
-                    @auth
+                    @if (Route::has('register'))
                         <a
-                            href="{{ url('/dashboard') }}"
-                            class="btn btn-dark inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
-                        >
-                            Dashboard
+                            href="{{ route('register') }}"
+                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                            Register
                         </a>
-                    @else
-                        <a
-                            href="{{ route('login') }}"
-                            class="btn btn-dark inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
-                        >
-                            Log in
-                        </a>
+                    @endif
+                @endauth
+            </nav>
+        @endif
+    </header>
 
-                        @if (Route::has('register'))
-                            <a
-                                href="{{ route('register') }}"
-                                class="btn btn-dark inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                                Register
-                            </a>
+    {{-- Main content --}}
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{-- Show search results if any --}}
+                    @isset($users)
+                        @if($users->count())
+                            <h2 class="text-lg font-semibold mb-4">Search Results:</h2>
+                            <ul class="list-disc list-inside">
+                                @foreach($users as $user)
+                                    <li>{{ $user->name }} ({{ $user->email }})</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>No users found.</p>
                         @endif
-                    @endauth
-                </nav>
-            @endif
+                    @endisset
+                </div>
+
+                {{-- Search form for authenticated users --}}
+                @auth
+                    <div style="margin: 20px">
+                        <p class="text-white">A03 SQL Injection</p>
+                        <form method="GET" action="/search" class="flex gap-2">
+                            <input
+                                type="text"
+                                name="search"
+                                placeholder="Search users..."
+                                class="px-3 py-1 border rounded-sm dark:bg-gray-700 dark:border-gray-600 text-black dark:text-white"
+                                required>
+                            <button type="submit"
+                                    class="px-3 py-1 bg-blue-500 text-white rounded-sm hover:bg-blue-600">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                @endauth
+            </div>
         </div>
     </div>
-</nav>
-
-<main class="container">
-    <div class="bg-light p-5 rounded">
-        <h1>Navbar example</h1>
-        <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-        <a class="btn btn-lg btn-primary" href="/docs/5.0/components/navbar/" role="button">View navbar docs »</a>
-    </div>
-</main>
-
-
-<!-- Bootstrap 5 JS via CDN (requires Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-</x-app-layout>>
+</x-app-layout>
