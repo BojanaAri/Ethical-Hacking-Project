@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CryptographicFailuresTestController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,9 +18,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// A01 - Broken Access Control
 Route::get('/admin', function () {
     return view('admin.dashboard');})
     ->middleware(['auth', 'admin'])
     ->name('admin.dashboard');
+
+// A02 - Cryptographic Failures
+Route::get('/crypto-demo', [CryptographicFailuresTestController::class, 'showStoredPasswords']);
+Route::post('/store-passwords', [CryptographicFailuresTestController::class, 'storePassword']);
 
 require __DIR__.'/auth.php';
