@@ -37,6 +37,17 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    public function insecureUpdate(Request $request, $id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->save();
+
+        return redirect()->back()->with('status', 'User updated without permission check!');
+    }
+
+
     /**
      * Delete the user's account.
      */

@@ -1,68 +1,76 @@
-<x-app-layout>
-    {{-- Optional login/register navigation --}}
-    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden mx-auto">
-        @if (Route::has('login'))
-            <nav class="flex items-center justify-end gap-4">
-                @auth
-                    {{-- Authenticated users don’t need login/register links --}}
-                @else
-                    <a
-                        href="{{ route('login') }}"
-                        class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal">
-                        Log in
-                    </a>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OWASP Demo Portal – Laravel</title>
 
-                    @if (Route::has('register'))
-                        <a
-                            href="{{ route('register') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
-                            Register
-                        </a>
-                    @endif
-                @endauth
-            </nav>
-        @endif
-    </header>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
-    {{-- Main content --}}
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{-- Show search results if any --}}
-                    @isset($users)
-                        @if($users->count())
-                            <h2 class="text-lg font-semibold mb-4">Search Results:</h2>
-                            <ul class="list-disc list-inside">
-                                @foreach($users as $user)
-                                    <li>{{ $user->name }} ({{ $user->email }})</li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <p>No users found.</p>
-                        @endif
-                    @endisset
-                </div>
+    <!-- Tailwind (if not using Laravel Mix or Vite for now) -->
+    @vite('resources/css/app.css') {{-- Only if you're using Vite --}}
+</head>
 
-                {{-- Search form for authenticated users --}}
-                @auth
-                    <div style="margin: 20px">
-                        <p class="text-white">A03 SQL Injection</p>
-                        <form method="GET" action="/search" class="flex gap-2">
-                            <input
-                                type="text"
-                                name="search"
-                                placeholder="Search users..."
-                                class="px-3 py-1 border rounded-sm dark:bg-gray-700 dark:border-gray-600 text-black dark:text-white"
-                                required>
-                            <button type="submit"
-                                    class="px-3 py-1 bg-blue-500 text-white rounded-sm hover:bg-blue-600">
-                                Search
-                            </button>
-                        </form>
-                    </div>
-                @endauth
-            </div>
-        </div>
+<body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-[#EDEDEC] p-6 lg:p-8 flex flex-col items-center justify-center min-h-screen">
+
+<!-- Header -->
+<header class="w-full max-w-4xl text-sm mb-6">
+    @if (Route::has('login'))
+        <nav class="flex justify-end gap-4">
+            @auth
+                <a href="{{ url('/dashboard') }}" class="text-sm px-4 py-2 border rounded hover:underline">Dashboard</a>
+            @else
+                <a href="{{ route('login') }}" class="text-sm px-4 py-2 border rounded hover:underline">Log in</a>
+                @if (Route::has('register'))
+                    <a href="{{ route('register') }}" class="text-sm px-4 py-2 border rounded hover:underline">Register</a>
+                @endif
+            @endauth
+        </nav>
+    @endif
+</header>
+
+<!-- Hero Section -->
+<div class="text-center max-w-2xl">
+    <h1 class="text-3xl sm:text-5xl font-bold mb-4">
+        🔐 Laravel OWASP Top 10 Demo
+    </h1>
+    <p class="text-lg mb-8 text-gray-600 dark:text-gray-400">
+        Explore live examples of the OWASP Top 5 vulnerabilities and learn how Laravel protects against them.
+    </p>
+
+    <!-- Links to OWASP Demos -->
+    <div class="grid gap-4 md:grid-cols-2">
+        @auth
+        <a href="/admin" class="bg-red-100 dark:bg-red-900 p-4 rounded shadow hover:bg-red-200 transition">
+            A01 – Broken Access Control
+        </a>
+        <a href="/crypto-demo" class="bg-orange-100 dark:bg-orange-900 p-4 rounded shadow hover:bg-orange-200 transition">
+            A02 – Cryptographic Failures
+        </a>
+        <a href="/dashboard" class="bg-yellow-100 dark:bg-yellow-900 p-4 rounded shadow hover:bg-yellow-200 transition">
+            A03 – Injection
+        </a>
+        <a href="/insecure-design" class="bg-green-100 dark:bg-green-900 p-4 rounded shadow hover:bg-green-200 transition">
+            A04 – Insecure Design
+        </a>
+        <a href="/security-misconfig" class="bg-blue-100 dark:bg-blue-900 p-4 rounded shadow hover:bg-blue-200 transition">
+            A05 – Security Misconfiguration
+        </a>
+        @else
+            <!-- Message for guests -->
+            <p class="text-md mt-8 text-red-500 font-medium">
+                🔒 You must be logged in to access the OWASP demo scenarios.
+            </p>
+        @endauth
     </div>
-</x-app-layout>
+</div>
+
+<!-- Footer -->
+<footer class="mt-12 text-center text-xs text-gray-500 dark:text-gray-400">
+    Built with Laravel Breeze • Educational Use Only
+</footer>
+
+</body>
+</html>

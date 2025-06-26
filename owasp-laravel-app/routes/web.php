@@ -32,4 +32,31 @@ Route::post('/store-passwords', [CryptographicFailuresTestController::class, 'st
 // A03 - SQL Injection
 Route::get('/search', [HomeController::class, 'searchUsers']);
 
+
+// A04 - Insecure Design
+Route::middleware(['auth'])->group(function () {
+    Route::get('/insecure-design', function () {
+        return view('insecure-design-demo');
+    });
+
+    Route::post('/update-any-profile/{id}', [ProfileController::class, 'insecureUpdate']);
+});
+
+// A05:2021-Security Misconfiguration
+Route::get('/trigger-error', function () {
+    throw new \Exception("🔥 Simulated application failure for A05: Security Misconfiguration demo.");
+});
+Route::get('/leak-env', function () {
+    return [
+        'app_env' => config('app.env'),
+        'app_debug' => config('app.debug'),
+        'db_host' => env('DB_HOST'),
+        'db_password' => env('DB_PASSWORD'),
+    ];
+});
+Route::get('/security-misconfig', function () {
+    return view('security_misconfig_demo');
+});
+
+
 require __DIR__.'/auth.php';
