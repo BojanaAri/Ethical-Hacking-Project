@@ -101,26 +101,6 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 p-4 bg-gray-100 dark:bg-gray-700 rounded">
-                        <h3 class="text-lg font-bold mb-2">About A07:2021 - Identification and Authentication Failures</h3>
-                        <p class="mb-4">This vulnerability occurs when authentication mechanisms are implemented incorrectly, allowing attackers to compromise passwords, keys, or session tokens.</p>
-
-                        <h4 class="font-bold mt-4">Common Issues:</h4>
-                        <ul class="list-disc pl-5 mb-4">
-                            <li>No or weak rate limiting on authentication</li>
-                            <li>Weak password policies</li>
-                            <li>Plain text or weakly hashed passwords</li>
-                            <li>Missing or weak multi-factor authentication</li>
-                        </ul>
-
-                        <h4 class="font-bold mt-4">Laravel Protections:</h4>
-                        <ul class="list-disc pl-5">
-                            <li>Built-in rate limiting (throttling)</li>
-                            <li>Strong password hashing (bcrypt by default)</li>
-                            <li>Password validation rules</li>
-                            <li>CSRF protection</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

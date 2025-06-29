@@ -86,23 +86,6 @@ O:8:"stdClass":1:{s:4:"test";s:12:"Hello World!";}
                             </form>
                         </div>
                     </div>
-
-                    <div class="mt-8 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                        <h3 class="text-lg font-semibold mb-2">About A08: Software and Data Integrity Failures</h3>
-                        <p class="mb-2">This vulnerability occurs when software and data integrity is not maintained, including:</p>
-                        <ul class="list-disc pl-5 mb-4">
-                            <li>Downloading and running software updates without integrity verification</li>
-                            <li>Processing untrusted serialized data leading to object injection</li>
-                            <li>CI/CD pipeline vulnerabilities allowing malicious code injection</li>
-                        </ul>
-                        <p><strong>Secure Practices:</strong></p>
-                        <ul class="list-disc pl-5">
-                            <li>Use digital signatures to verify software updates</li>
-                            <li>Implement checksum verification for downloaded files</li>
-                            <li>Avoid unserializing untrusted data - use JSON instead</li>
-                            <li>Secure your CI/CD pipeline with proper access controls</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>

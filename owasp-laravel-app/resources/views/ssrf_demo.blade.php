@@ -60,23 +60,6 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 p-4 bg-yellow-100 dark:bg-yellow-900 rounded">
-                        <h3 class="font-semibold mb-2">About SSRF</h3>
-                        <p class="mb-2">Server-Side Request Forgery (SSRF) occurs when an attacker can make the server send requests to internal services that shouldn't be exposed.</p>
-                        <p class="mb-2"><strong>Vulnerable example risks:</strong></p>
-                        <ul class="list-disc pl-5 mb-2">
-                            <li>Access to internal services (metadata APIs, databases)</li>
-                            <li>Port scanning internal networks</li>
-                            <li>Sensitive data exposure</li>
-                        </ul>
-                        <p><strong>Secure solution features:</strong></p>
-                        <ul class="list-disc pl-5">
-                            <li>Domain allowlisting</li>
-                            <li>URL parsing and validation</li>
-                            <li>Port restrictions</li>
-                            <li>Timeouts and proper error handling</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
