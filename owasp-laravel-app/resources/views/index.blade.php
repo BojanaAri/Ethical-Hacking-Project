@@ -58,6 +58,21 @@
         <a href="/security-misconfig" class="bg-blue-100 dark:bg-blue-900 p-4 rounded shadow hover:bg-blue-200 transition">
             A05 – Security Misconfiguration
         </a>
+            <a href="/vulnerable-components" class="bg-indigo-100 dark:bg-indigo-900 p-4 rounded shadow hover:bg-indigo-200 transition">
+                A06 – Vulnerable Components
+            </a>
+            <a href="/a07-auth-failures" class="bg-indigo-100 dark:bg-indigo-900 p-4 rounded shadow hover:bg-indigo-200 transition">
+                A07 – Identification and Authentication Failures
+            </a>
+            <a href="/software-integrity" class="bg-purple-100 dark:bg-purple-900 p-4 rounded shadow hover:bg-purple-200 transition">
+                A08 – Software Integrity Failures
+            </a>
+            <a href="/logging-demo" class="bg-indigo-100 dark:bg-indigo-900 p-4 rounded shadow hover:bg-indigo-200 transition">
+                A09 – Security Logging & Monitoring Failures
+            </a>
+            <a href="/ssrf-demo" class="bg-purple-100 dark:bg-purple-900 p-4 rounded shadow hover:bg-purple-200 transition">
+                A10 – Server-Side Request Forgery
+            </a>
         @else
             <!-- Message for guests -->
             <p class="text-md mt-8 text-red-500 font-medium">

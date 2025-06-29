@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     gnupg2
 
+ENV TZ=Europe/Skopje
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+
 # Install Node.js 18 from official NodeSource
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs
